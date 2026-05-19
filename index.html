@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viena — La Ciudad Eterna de la Música</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream:      #f5efe4;
+      --sand:       #e8d8be;
+      --terracotta: #c4845a;
+      --umber:      #8b5e3c;
+      --espresso:   #3d2010;
+      --gold:       #d4a12a;
+      --warm-white: #fdf8f0;
+      --shadow:     rgba(61, 32, 16, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--espresso);
+      font-family: 'Lora', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 6rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(212,161,42,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(196,132,90,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* decorative arched frame */
+    .arch-frame {
+      position: absolute;
+      top: 3rem; left: 50%;
+      transform: translateX(-50%);
+      width: min(680px, 92vw);
+      height: min(680px, 92vw);
+      border: 2px solid rgba(212,161,42,0.35);
+      border-radius: 50% 50% 0 0 / 55% 55% 0 0;
+      pointer-events: none;
+    }
+
+    .subtitle-tag {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      background: var(--sand);
+      border: 1px solid rgba(196,132,90,0.4);
+      border-radius: 2rem;
+      padding: 0.35rem 1.1rem;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--espresso);
+      max-width: 720px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-text {
+      margin-top: 1.6rem;
+      font-size: clamp(1rem, 2vw, 1.13rem);
+      line-height: 1.85;
+      color: var(--umber);
+      max-width: 600px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    /* ── CARDS SECTION ── */
+    .cards-section {
+      padding: 4rem 2rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      color: var(--espresso);
+      margin-bottom: 3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--warm-white);
+      border-radius: 1.4rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px var(--shadow);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(61,32,16,0.20);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+    }
+
+    .card:hover .card-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--gold);
+      color: var(--espresso);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border-radius: 2rem;
+    }
+
+    .card-body {
+      padding: 1.6rem 1.8rem 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-body h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      color: var(--espresso);
+      margin-bottom: 0.7rem;
+    }
+
+    .card-body p {
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: var(--umber);
+      flex: 1;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      transition: gap 0.25s;
+    }
+
+    .card:hover .card-cta { gap: 0.7rem; }
+
+    /* ── MOZART BANNER ── */
+    .mozart-section {
+      background: linear-gradient(135deg, var(--espresso) 0%, #5c2f14 100%);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mozart-section::before {
+      content: '♪';
+      position: absolute;
+      font-size: 28rem;
+      color: rgba(255,255,255,0.03);
+      top: -4rem; left: -3rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mozart-section::after {
+      content: '♩';
+      position: absolute;
+      font-size: 20rem;
+      color: rgba(255,255,255,0.03);
+      bottom: -2rem; right: -1rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mozart-inner {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .mozart-img-ring {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      overflow: hidden;
+      box-shadow: 0 0 0 8px rgba(212,161,42,0.15);
+    }
+
+    .mozart-img-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.3) brightness(0.95);
+    }
+
+    .mozart-section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--warm-white);
+      font-style: italic;
+    }
+
+    .mozart-section p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: rgba(245,239,228,0.80);
+      max-width: 600px;
+    }
+
+    .btn-mozart {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--gold);
+      color: var(--espresso);
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3rem;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 20px rgba(212,161,42,0.35);
+    }
+
+    .btn-mozart:hover {
+      background: #e8b52e;
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--sand);
+      border-top: 1px solid rgba(196,132,90,0.25);
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    .footer-credit {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--umber);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="arch-frame"></div>
+    <span class="subtitle-tag">Austria &middot; Europa Central</span>
+    <h1>Viena, la ciudad donde<br>la música es <em>eterna</em></h1>
+    <div class="divider"></div>
+    <p class="hero-text">
+      A orillas del Danubio se alza una ciudad que no necesita presentación para ningún amante
+      del arte, la historia y, sobre todo, la música. Viena es el corazón que late al ritmo
+      de sinfonías inmortales, palacios dorados y cafés donde el tiempo parece detenerse.
+    </p>
+  </section>
+
+  <!-- SITIOS DE INTERÉS -->
+  <section class="cards-section">
+    <p class="section-label">Descubrir Viena</p>
+    <h2 class="section-title">Lugares que no puedes perderte</h2>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Schönbrunn -->
+      <a class="card" href="https://www.schoenbrunn.at/" target="_blank" rel="noopener">
+        <div class="card-img-wrap">
+          <img
+            src="img/schonbrunn.jpg"
+            alt="Palacio de Schönbrunn, Viena"
+            loading="lazy"
+          />
+          <span class="card-badge">Patrimonio UNESCO</span>
+        </div>
+        <div class="card-body">
+          <h3>Palacio de Schönbrunn</h3>
+          <p>
+            Residencia imperial de los Habsburgo, este palacio barroco y sus jardines geométricos
+            son uno de los complejos palaciegos más fascinantes de Europa. Sus 1 441 estancias
+            guardan siglos de historia imperial.
+          </p>
+          <span class="card-cta">Visitar sitio →</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Belvedere -->
+      <a class="card" href="https://www.belvedere.at/" target="_blank" rel="noopener">
+        <div class="card-img-wrap">
+          <img
+            src="img/belvedere.jpg"
+            alt="Palacio del Belvedere, Viena"
+            loading="lazy"
+          />
+          <span class="card-badge">Arte &amp; Cultura</span>
+        </div>
+        <div class="card-body">
+          <h3>Palacio del Belvedere</h3>
+          <p>
+            Hogar del célebre <em>El beso</em> de Gustav Klimt, este conjunto palaciego del siglo XVIII
+            combina arquitectura barroca magistral con una colección de arte austriaco que abarca
+            varios siglos de historia.
+          </p>
+          <span class="card-cta">Visitar sitio →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- MOZART -->
+  <section class="mozart-section">
+    <div class="mozart-inner">
+      <div class="mozart-img-ring">
+        <img
+          src="img/mozart.jpg"
+          alt="Retrato de Wolfgang Amadeus Mozart"
+          loading="lazy"
+        />
+      </div>
+      <h2>Wolfgang Amadeus Mozart</h2>
+      <p>
+        Para los amantes de la música, Viena tiene un nombre propio: Mozart. Aunque nacido en
+        Salzburgo, fue en Viena donde el genio del compositor alcanzó su plenitud, estrenando
+        óperas magistrales como <em>Las bodas de Fígaro</em> y <em>Don Giovanni</em>.
+        La ciudad conserva su legado en cada rincón: desde la casa donde vivió hasta la sala
+        donde sus sinfonías resonaron por primera vez ante la historia.
+      </p>
+      <a class="btn-mozart" href="https://mozarteum.at/en/home#info" target="_blank" rel="noopener">
+        Descubrir la vida de Mozart
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-credit">Página web generada con Claude por MAFZ</p>
+  </footer>
+
+</body>
+</html>
